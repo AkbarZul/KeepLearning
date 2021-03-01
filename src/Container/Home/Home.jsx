@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import PropsDynamic from "../../Component/PropsDynamic/PropsDynamic";
-import Product from "../Product/Product";
-import LifeCycle from "../LifeCycle/LifeCycle";
+// import PropsDynamic from "../../Component/PropsDynamic/PropsDynamic";
+// import Product from "../Product/Product";
+// import LifeCycle from "../LifeCycle/LifeCycle";
+import BlogPost from '../BlogPost/BlogPost';
 
 class Home extends Component {
   state = {
@@ -19,7 +20,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <p>Refresh Materi Props</p>
+        {/* <p>Refresh Materi Props</p>
         <hr />
         <PropsDynamic
           time="08.00"
@@ -49,7 +50,10 @@ class Home extends Component {
 
         <p>Life Cycle</p>
         <hr />
-        {this.state.showComponent ? <LifeCycle /> : null}
+        {this.state.showComponent ? <LifeCycle /> : null} */}
+        <p>Blog Post</p>
+        <hr/>
+        <BlogPost />
       </>
     );
   }
