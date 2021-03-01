@@ -10,41 +10,48 @@ class LifeCycle extends Component {
         console.log('constructor')
     }
 
-    // static getDerivedStateFromProps(props, state){
-    //     console.log('getDerivedStateFromProps');
-    //     return null
-
-    // }
-    componentDidMount () {
-        console.log('componentDidMount');
-        setTimeout (() => {
-            this.setState({
-                count: 2
-            })
-        }, 4000)
+    static getDerivedStateFromProps(props, state){
+        console.log('getDerivedStateFromProps');
+        return null
 
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('shouldComponentUpdate');
-    //     return true;
+    componentDidMount () {
+        console.log('componentDidMount');
+        // setTimeout (() => {
+        //     this.setState({
+        //         count: 2
+        //     })
+        // }, 5000)
 
-    // }
-    // getSnapshotBeforeUpdate(prevProps, prevState) {
-    //     console.log('getSnapshotBeforeUpdate');
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('shouldComponentUpdate');
+        return true;
 
-    // }
+    }
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log('getSnapshotBeforeUpdate');
+        return null
+
+    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('componentDidUpdate');
 
     }
-    componentWillMount() {
+    componentWillUnmount() {
         console.log('componentWillMount');
 
+    }
+
+    changeCount = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
     }
     render(){
         console.log('Render');
         return(
-            <button className='btn'>Component Button {this.state.count}</button>
+            <button className='btn' onClick={this.changeCount}>Component Button {this.state.count}</button>
         )
     }
 }
