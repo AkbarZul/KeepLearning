@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropsDynamic from "../../Component/PropsDynamic/PropsDynamic";
 import Product from '../Product/Product';
+import LifeCycle from '../LifeCycle/LifeCycle';
 
 class Home extends Component {
   render() {
@@ -17,6 +18,10 @@ class Home extends Component {
         <p>Counter</p>
         <hr />
         <Product />
+
+        <p>Life Cycle</p>
+        <hr/>
+        <LifeCycle />
 
       </>
     );

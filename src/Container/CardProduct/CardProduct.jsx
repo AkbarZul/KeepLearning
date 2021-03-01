@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class CardProduct extends Component {
     state = {
-        order: 4
+        order: 0
     }
 
     handleCounterChange = (newValue) => {

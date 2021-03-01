@@ -23,7 +23,7 @@
 }
 
 .troley img {
-    width: 30px;
+    width: 40px;
 }
 
 .count {
@@ -89,7 +89,7 @@
 .text-count {
         padding: 18px 8px;
         margin: 8px 0;
-        font-size: 14px;
+        font-size: 10px;
         text-align: center; 
         box-sizing: border-box;
       

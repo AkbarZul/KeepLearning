@@ -4,7 +4,7 @@ import CardProduct from "../CardProduct/CardProduct";
 
 class Product extends Component {
     state = {
-        order: 4
+        order: 0
     }
 
     handleCounterChange = (newValue) => {
