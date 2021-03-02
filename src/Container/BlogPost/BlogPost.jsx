@@ -34,11 +34,12 @@ class BlogPost extends Component {
       })
   }
   render() {
+    const {post} = this.state
     return (
       <>
         <p className="section-title">Blog post</p>
        {
-           this.state.post.map(post => {
+           post.map(post => {
                return <Post key={post.id} title={post.title} desc={post.body} />
            })
        }
