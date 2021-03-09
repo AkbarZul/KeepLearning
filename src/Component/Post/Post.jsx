@@ -1,7 +1,7 @@
 import React from "react";
 const urlPoster = 'http://image.tmdb.org/t/p/w500';
 
-const Post = ({title, desc, img}) => {
+const Post = ({title, desc, img, overview}) => {
   return (
     <div className="post">
       <div className="img-thumb">
@@ -10,6 +10,7 @@ const Post = ({title, desc, img}) => {
       <div className="content">
         <p className="title">{title}</p>
         <p className="desc">{desc}</p>
+        <p className="desc">{overview}</p>
       </div>
     </div>
   );
