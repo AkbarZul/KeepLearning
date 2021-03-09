@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Post from "../../Component/Post/Post";
 import "./BlogPost.css";
 import axios from 'axios';
+const url = "https://api.themoviedb.org/3/movie/top_rated?api_key=2246337a80611cc7c7330ca5156842f5&language=en-US&page=1"
+
 
 class BlogPost extends Component {
   state = {
@@ -22,11 +24,11 @@ class BlogPost extends Component {
 
   // read API use axios
   componentDidMount() {
-      axios.get("https://jsonplaceholder.typicode.com/posts")
+      axios.get(url)
       .then((res) => {
-        //   console.log(res.data)
+          console.log(res.data.results)
         this.setState({
-            post: res.data
+            post: res.data.results
         })
       })
       .catch((err) => {
@@ -39,8 +41,8 @@ class BlogPost extends Component {
       <>
         <p className="section-title">Blog post</p>
        {
-           post.map(post => {
-               return <Post key={post.id} title={post.title} desc={post.body} />
+           post.map(({ id, title, original_language, poster_path}) => {
+               return <Post key={id} title={title} desc={original_language} img={poster_path} />
            })
        }
        

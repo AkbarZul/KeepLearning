@@ -1,14 +1,15 @@
 import React from "react";
+const urlPoster = 'http://image.tmdb.org/t/p/w500';
 
-const Post = (props) => {
+const Post = ({title, desc, img}) => {
   return (
     <div className="post">
       <div className="img-thumb">
-        <img src="https://placeimg.com/200/150/tech" alt="" />
+        <img src={urlPoster + img} alt="" />
       </div>
       <div className="content">
-        <p className="title">{props.title}</p>
-        <p className="desc">{props.desc}</p>
+        <p className="title">{title}</p>
+        <p className="desc">{desc}</p>
       </div>
     </div>
   );
