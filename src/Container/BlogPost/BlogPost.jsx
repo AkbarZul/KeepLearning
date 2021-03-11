@@ -73,7 +73,8 @@ class BlogPost extends Component {
       body: "",
       userId: 1,
     },
-    errMsg: '',
+    errMsg: "",
+    isUpdate: false,
   };
 
   // read API use fetch
@@ -107,15 +108,16 @@ class BlogPost extends Component {
       .then((res) => {
         console.log("ADD BERHASIL", res);
         this.getApi();
-      }).catch(({response}) => {
-        if(response.status === 500) {
+      })
+      .catch(({ response }) => {
+        if (response.status === 500) {
           console.log("ini error 500");
           this.setState({
-            errMsg: "Title/body harus diisi"
-          })
+            errMsg: "Title/body harus diisi",
+          });
         }
         // console.log("ini error", response);
-      })
+      });
   };
 
   // data berfungsi posisi/objek/id mana yg perlu kita remove
@@ -128,6 +130,37 @@ class BlogPost extends Component {
     });
   };
 
+  // ini buat trigger si isUpdate
+  // data disini ngebawa semua id,userId,title,body
+  handleUpdate = (data) => {
+    console.log(data);
+    // ini buat ngisi value formBlogPost sama data card yg pengen diupdate
+    // buat ngerubah isUpdate jadi true juga
+    this.setState({
+      formBlogPost: data,
+      isUpdate: true,
+    });
+  };
+
+  putDataApi = () => {
+    axios
+      .put(`http://localhost:3004/posts/${this.state.formBlogPost.id}`, this.state.formBlogPost)
+      .then((res) => {
+        console.log("berhasil Update", res);
+        this.getApi();
+        // ini buat ngeclear/ngembalin state ke awal kalo udh berhasil delete
+        this.setState({
+          isUpdate: false,
+          formBlogPost: {
+            id: 1,
+            title: "",
+            body: "",
+            userId: 1,
+          },
+        })
+      });
+  };
+
   // onChange adalah jika ada perubahan yg ada di form tersebut kita ingin melakukan action apa
   // event menangkap trigger dari form
   handleFormChange = (event) => {
@@ -137,7 +170,11 @@ class BlogPost extends Component {
     // formBlogPost diatas itu object
     let formBlogPostNew = { ...this.state.formBlogPost };
     let timeStamp = new Date().getTime();
-    formBlogPostNew["id"] = timeStamp;
+    // ini biar kalo update idnya gak bentrok
+    // kalo dia gak sama dengan state.isUpdate id nya bakal nambah
+    if (!this.state.isUpdate) {
+      formBlogPostNew["id"] = timeStamp;
+    }
     // menarget name
     // dan mengganti value
     formBlogPostNew[event.target.name] = event.target.value;
@@ -147,8 +184,12 @@ class BlogPost extends Component {
   };
 
   handleSubmit = () => {
-    // console.log(this.state.formBlogPost);
-    this.postDataToApi();
+    // kalo isUpdatenya true dia jalanin putDataApi
+    if (this.state.isUpdate) {
+      this.putDataApi();
+    } else {
+      this.postDataToApi();
+    }
   };
 
   componentDidMount() {
@@ -164,6 +205,7 @@ class BlogPost extends Component {
             {this.state.errMsg}
             <input
               type="text"
+              value={this.state.formBlogPost.title}
               name="title"
               placeholder="add title"
               onChange={this.handleFormChange}
@@ -174,6 +216,7 @@ class BlogPost extends Component {
               id="body"
               cols="30"
               rows="10"
+              value={this.state.formBlogPost.body}
               placeholder="add blog content"
               onChange={this.handleFormChange}
             ></textarea>
@@ -185,7 +228,14 @@ class BlogPost extends Component {
         {post.map((post) => {
           // bisa diginiin
           // si data ngebawa hasil map si post
-          return <Post key={post.id} data={post} remove={this.handleRemove} />;
+          return (
+            <Post
+              key={post.id}
+              data={post}
+              remove={this.handleRemove}
+              update={this.handleUpdate}
+            />
+          );
           // return <Post key={post.id} title={props.title} desc={props.body} remove={this.handleRemove} />
         })}
       </>
