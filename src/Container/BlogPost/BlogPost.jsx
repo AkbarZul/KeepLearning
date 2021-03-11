@@ -108,6 +108,14 @@ class BlogPost extends Component {
       .then((res) => {
         console.log("ADD BERHASIL", res);
         this.getApi();
+        this.setState({
+          formBlogPost: {
+            id: 1,
+            title: "",
+            body: "",
+            userId: 1,
+          },
+        })
       })
       .catch(({ response }) => {
         if (response.status === 500) {
@@ -148,7 +156,7 @@ class BlogPost extends Component {
       .then((res) => {
         console.log("berhasil Update", res);
         this.getApi();
-        // ini buat ngeclear/ngembalin state ke awal kalo udh berhasil delete
+        // ini buat ngeclear/ngembalin state ke awal kalo udh berhasil update
         this.setState({
           isUpdate: false,
           formBlogPost: {
@@ -168,19 +176,22 @@ class BlogPost extends Component {
     // ini buat ngopi state awal si formBlogPost
     // karena kalau gak diginiin nanti malah ke isi semua dan berubah jadi string
     // formBlogPost diatas itu object
+    // ini buat nanti enak narget name sama value
     let formBlogPostNew = { ...this.state.formBlogPost };
+     // menarget name
+    // dan mengganti value
+    formBlogPostNew[event.target.name] = event.target.value;
+    this.setState({
+      formBlogPost: formBlogPostNew,
+    });
     let timeStamp = new Date().getTime();
     // ini biar kalo update idnya gak bentrok
     // kalo dia gak sama dengan state.isUpdate id nya bakal nambah
     if (!this.state.isUpdate) {
       formBlogPostNew["id"] = timeStamp;
     }
-    // menarget name
-    // dan mengganti value
-    formBlogPostNew[event.target.name] = event.target.value;
-    this.setState({
-      formBlogPost: formBlogPostNew,
-    });
+   
+    
   };
 
   handleSubmit = () => {

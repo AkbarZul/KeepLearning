@@ -45,7 +45,7 @@ const Post = (props) => {
         <img src='https://placeimg.com/640/480/tech' alt="" />
       </div>
       <div className="content">
-        {/* nah disini tinggal data. sesuai sama apa yg mau ditampilin */}
+        {/* nah disini tinggal data. sesuai sama apa yg mau ditampilin sesuai yg ada API */}
         <p className="title">{props.data.title}</p>
         <p className="desc">{props.data.body}</p>
         <button className='update' onClick={() => props.update(props.data)}>Update</button>
