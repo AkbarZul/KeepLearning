@@ -67,6 +67,13 @@ import axios from "axios";
 class BlogPost extends Component {
   state = {
     post: [],
+    formBlogPost: {
+      id: 1,
+      title: "",
+      body: "",
+      userId: 1,
+    },
+    errMsg: '',
   };
 
   // read API use fetch
@@ -81,11 +88,10 @@ class BlogPost extends Component {
   //   }
 
   // read API use axios
-  componentDidMount() {
+  getApi = () => {
     axios
-      .get("http://localhost:3004/posts")
+      .get("http://localhost:3004/posts?_sort=id&_order=desc")
       .then((res) => {
-        console.log(res.data);
         this.setState({
           post: res.data,
         });
@@ -93,19 +99,97 @@ class BlogPost extends Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  postDataToApi = () => {
+    axios
+      .post("http://localhost:3004/posts", this.state.formBlogPost)
+      .then((res) => {
+        console.log("ADD BERHASIL", res);
+        this.getApi();
+      }).catch(({response}) => {
+        if(response.status === 500) {
+          console.log("ini error 500");
+          this.setState({
+            errMsg: "Title/body harus diisi"
+          })
+        }
+        // console.log("ini error", response);
+      })
+  };
+
+  // data berfungsi posisi/objek/id mana yg perlu kita remove
+  handleRemove = (data) => {
+    console.log(data);
+    axios.delete(`http://localhost:3004/posts/${data}`).then((res) => {
+      console.log("berhasil delete", res);
+      // ini biar langsung get yg udh didelete tanpa harus refresh
+      this.getApi();
+    });
+  };
+
+  // onChange adalah jika ada perubahan yg ada di form tersebut kita ingin melakukan action apa
+  // event menangkap trigger dari form
+  handleFormChange = (event) => {
+    // console.log("ini Change", event.target)
+    // ini buat ngopi state awal si formBlogPost
+    // karena kalau gak diginiin nanti malah ke isi semua dan berubah jadi string
+    // formBlogPost diatas itu object
+    let formBlogPostNew = { ...this.state.formBlogPost };
+    let timeStamp = new Date().getTime();
+    formBlogPostNew["id"] = timeStamp;
+    // menarget name
+    // dan mengganti value
+    formBlogPostNew[event.target.name] = event.target.value;
+    this.setState({
+      formBlogPost: formBlogPostNew,
+    });
+  };
+
+  handleSubmit = () => {
+    // console.log(this.state.formBlogPost);
+    this.postDataToApi();
+  };
+
+  componentDidMount() {
+    this.getApi();
   }
   render() {
-    const {post} = this.state
-    return(
+    const { post } = this.state;
+    return (
       <>
-      <p className="section-title">Blog post</p>
-      {
-        post.map((post => {
-          return <Post key={post.id} title={post.title} desc={post.body} />
-        }))
-      }
+        <p className="section-title">Blog post</p>
+        <div className="form-add-post">
+          <label htmlFor="title">
+            {this.state.errMsg}
+            <input
+              type="text"
+              name="title"
+              placeholder="add title"
+              onChange={this.handleFormChange}
+            />
+            <label htmlFor="body">Blog content</label>
+            <textarea
+              name="body"
+              id="body"
+              cols="30"
+              rows="10"
+              placeholder="add blog content"
+              onChange={this.handleFormChange}
+            ></textarea>
+            <button className="btn-submit" onClick={this.handleSubmit}>
+              Simpan
+            </button>
+          </label>
+        </div>
+        {post.map((post) => {
+          // bisa diginiin
+          // si data ngebawa hasil map si post
+          return <Post key={post.id} data={post} remove={this.handleRemove} />;
+          // return <Post key={post.id} title={props.title} desc={props.body} remove={this.handleRemove} />
+        })}
       </>
-    )
+    );
   }
 }
 
