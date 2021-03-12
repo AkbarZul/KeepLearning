@@ -203,6 +203,10 @@ class BlogPost extends Component {
     }
   };
 
+  handleDetail = (id) => {
+    this.props.history.push(`/detail/${id}`)
+  }
+
   componentDidMount() {
     this.getApi();
   }
@@ -245,6 +249,7 @@ class BlogPost extends Component {
               data={post}
               remove={this.handleRemove}
               update={this.handleUpdate}
+              goDetail={this.handleDetail}
             />
           );
           // return <Post key={post.id} title={props.title} desc={props.body} remove={this.handleRemove} />
