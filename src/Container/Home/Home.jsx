@@ -3,7 +3,7 @@ import PropsDynamicPage from "../Pages/PropsDynamicPage/PropsDynamicPage"
 import Product from "../Pages/Product/Product";
 import LifeCycle from "../Pages/LifeCycle/LifeCycle";
 import BlogPost from "../Pages/BlogPost/BlogPost"
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './Home.css';
 class Home extends Component {
   state = {
@@ -11,7 +11,7 @@ class Home extends Component {
   };
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <>
         <div className="navigation">
           <Link to="/" >Blog Post</Link>
@@ -24,7 +24,7 @@ class Home extends Component {
           <Route path="/lifecycle" component={LifeCycle} />
           <Route path="/dynamic" component={PropsDynamicPage} />
         </>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
