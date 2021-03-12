@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Post from "../../Component/Post/Post";
+import Post from "../../../Component/Post/Post";
 import "./BlogPost.css";
 import axios from 'axios';
 

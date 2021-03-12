@@ -60,7 +60,7 @@
 
 // Prawito
 import React, { Component } from "react";
-import Post from "../../Component/Post/Post";
+import Post from "../../../Component/Post/Post";
 import "./BlogPost.css";
 import axios from "axios";
 
