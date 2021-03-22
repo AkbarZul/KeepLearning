@@ -52,4 +52,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Counter);
+const mapDispatchToProps = (dispatch) => {
+  return{
+    handlePlus: () => dispatch('PLUS_ORDER'),
+    handleMinus: () => dispatch('MINUS_ORDER'),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
