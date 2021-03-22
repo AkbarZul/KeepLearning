@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropsDynamicPage from "../Pages/PropsDynamicPage/PropsDynamicPage"
 import Product from "../Pages/Product/Product";
 import LifeCycle from "../Pages/LifeCycle/LifeCycle";
-// import BlogPost from "../Pages/BlogPost/BlogPost"
-import Blog from "../Pages/Blog/Blog";
+import BlogPost from "../Pages/BlogPost/BlogPost"
+// import Blog from "../Pages/Blog/Blog";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './Home.css';
 import DetailPost from "../Pages/BlogPost/DetailPost/DetailPost";
@@ -21,7 +21,7 @@ class Home extends Component {
           <Link to="/lifecycle" >lifecycle</Link>
           <Link to="/dynamic" >Props dynamic</Link>
         </div>
-          <Route path="/" exact component={Blog} />
+          <Route path="/" exact component={BlogPost} />
           <Route path="/detail/:id" component={DetailPost} />
           <Route path="/product" component={Product} />
           <Route path="/lifecycle" component={LifeCycle} />
